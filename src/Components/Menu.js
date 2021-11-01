@@ -2,9 +2,10 @@ import React, { useContext } from "react";
 import { CoffeeContext } from "../Hooks/CoffeeContext";
 
 const Menu = () => {
-  const { coffeeData } = useContext(CoffeeContext);
+  const { coffeeList } = useContext(CoffeeContext);
   return (
     <div>
+      <h2>메뉴판</h2>
       <table>
         <thead>
           <tr>
@@ -13,7 +14,7 @@ const Menu = () => {
           </tr>
         </thead>
         <tbody>
-          {coffeeData.map((item) => (
+          {coffeeList.map((item) => (
             <tr key={item.id}>
               <td>{item.id}</td>
               <td>{item.name}</td>
