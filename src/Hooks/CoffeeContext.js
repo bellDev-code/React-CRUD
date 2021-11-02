@@ -48,12 +48,27 @@ export const CoffeeContextProvider = ({ children }) => {
     addMenu(name, price);
   };
 
+  const deleteMenu = (id) => {
+    // 삭제 기능
+    const deleteList = [...coffeeList];
+
+    // for문 돌려서 내가 누른 오브젝트가 id와 일치한지 확인한다.
+    for (let i = 0; i < deleteList.length; i++) {
+      if (deleteList[i].id === id) {
+        // 배열의 원소 삭제하는 방법 생각하기
+        deleteList.splice(i, 1);
+      }
+    }
+    setCoffeeList(deleteList);
+  };
+
   return (
     <CoffeeContext.Provider
       value={{
         coffeeList: coffeeList,
         addMenu: addMenu,
         addOnSubmit: addOnSubmit,
+        deleteMenu: deleteMenu,
       }}
     >
       {children}

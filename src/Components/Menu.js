@@ -2,13 +2,14 @@ import React, { useContext } from "react";
 import { CoffeeContext } from "../Hooks/CoffeeContext";
 
 const Menu = () => {
-  const { coffeeList } = useContext(CoffeeContext);
+  const { coffeeList, deleteMenu } = useContext(CoffeeContext);
   return (
     <div>
       <h2>메뉴판</h2>
       <table>
         <thead>
           <tr>
+            <th>번호</th>
             <th>메뉴</th>
             <th>가격</th>
           </tr>
@@ -21,7 +22,7 @@ const Menu = () => {
               <td>{item.price}</td>
               <td>
                 <button>Edit</button>
-                <button>Delete</button>
+                <button onClick={() => deleteMenu(item.id)}>Delete</button>
               </td>
             </tr>
           ))}
