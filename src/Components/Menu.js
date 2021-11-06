@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { CoffeeContext } from "../Hooks/CoffeeContext";
 
 const Menu = () => {
-  const { coffeeList, deleteMenu } = useContext(CoffeeContext);
+  const { coffeeList, deleteMenu, editRow } = useContext(CoffeeContext);
   return (
     <div>
       <h2>메뉴판</h2>
@@ -15,14 +15,14 @@ const Menu = () => {
           </tr>
         </thead>
         <tbody>
-          {coffeeList.map((item) => (
-            <tr key={item.id}>
-              <td>{item.id}</td>
-              <td>{item.name}</td>
-              <td>{item.price}</td>
+          {coffeeList.map((coffee) => (
+            <tr key={coffee.id}>
+              <td>{coffee.id}</td>
+              <td>{coffee.name}</td>
+              <td>{coffee.price}</td>
               <td>
-                <button>Edit</button>
-                <button onClick={() => deleteMenu(item.id)}>Delete</button>
+                <button onClick={() => editRow(coffee)}>Edit</button>
+                <button onClick={() => deleteMenu(coffee.id)}>Delete</button>
               </td>
             </tr>
           ))}

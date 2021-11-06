@@ -1,4 +1,5 @@
 import React, { createContext, useState } from "react";
+import EditMenu from "../Components/EditMenu";
 
 const coffeeData = [
   {
@@ -62,6 +63,34 @@ export const CoffeeContextProvider = ({ children }) => {
     setCoffeeList(deleteList);
   };
 
+  const [editing, setEditing] = useState(false);
+  const initialFormState = { id: null, name: "", price: 0 };
+
+  const [currentData, setCurrentData] = useState(initialFormState);
+
+  const editRow = (coffee) => {
+    setEditing(true);
+
+    setCurrentData({ id: coffee.id, name: coffee.name, price: coffee.price });
+  };
+
+  const EditMenu = (id, updateCoffee) => {
+    setEditing(false);
+
+    setCoffeeList(
+      coffeeList.map((coffee) => (coffee.id === id ? updateCoffee : coffee))
+    );
+  };
+
+  const updateOnSubmit = (event) => {
+    event.preventDefault();
+
+    const name = event.target[0].value;
+    const price = event.target[1].value;
+
+    EditMenu(name, price);
+  };
+
   return (
     <CoffeeContext.Provider
       value={{
@@ -69,6 +98,10 @@ export const CoffeeContextProvider = ({ children }) => {
         addMenu: addMenu,
         addOnSubmit: addOnSubmit,
         deleteMenu: deleteMenu,
+        editing: editing,
+        currentData: currentData,
+        editRow: editRow,
+        updateOnSubmit: updateOnSubmit,
       }}
     >
       {children}
