@@ -8,11 +8,6 @@ const EditMenu = () => {
   const name = UseInput();
   const price = UseInput();
 
-  console.log(name, price);
-
-  // input의 value값 확인
-  // console.log(name, price);
-
   return (
     <div>
       <h2>메뉴 수정하기</h2>

@@ -71,15 +71,18 @@ export const CoffeeContextProvider = ({ children }) => {
   const editRow = (coffee) => {
     setEditing(true);
 
+    console.log(coffee);
     setCurrentData({ id: coffee.id, name: coffee.name, price: coffee.price });
   };
 
-  const EditMenu = (id, updateCoffee) => {
+  const updateMenu = (name, price) => {
     setEditing(false);
 
-    setCoffeeList(
-      coffeeList.map((coffee) => (coffee.id === id ? updateCoffee : coffee))
-    );
+    // 수정하는 방법
+
+    setCoffeeList();
+
+    console.log(name, price);
   };
 
   const updateOnSubmit = (event) => {
@@ -88,7 +91,7 @@ export const CoffeeContextProvider = ({ children }) => {
     const name = event.target[0].value;
     const price = event.target[1].value;
 
-    EditMenu(name, price);
+    updateMenu(name, price);
   };
 
   return (
@@ -102,6 +105,7 @@ export const CoffeeContextProvider = ({ children }) => {
         currentData: currentData,
         editRow: editRow,
         updateOnSubmit: updateOnSubmit,
+        updateMenu: updateMenu,
       }}
     >
       {children}
