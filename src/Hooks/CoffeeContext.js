@@ -1,5 +1,4 @@
 import React, { createContext, useState } from "react";
-import EditMenu from "../Components/EditMenu";
 
 const coffeeData = [
   {
@@ -64,34 +63,70 @@ export const CoffeeContextProvider = ({ children }) => {
   };
 
   const [editing, setEditing] = useState(false);
-  const initialFormState = { id: null, name: "", price: 0 };
+  const initialFormState = { id: 0, name: "", price: 0 };
 
   const [currentData, setCurrentData] = useState(initialFormState);
 
   const editRow = (coffee) => {
-    setEditing(true);
+    console.log(currentData);
 
-    console.log(coffee);
+    // console.log(coffee);
     setCurrentData({ id: coffee.id, name: coffee.name, price: coffee.price });
+    setEditing(true);
   };
+  // [][][][][]
 
-  const updateMenu = (name, price) => {
-    setEditing(false);
+  // array length 4
+
+  // array[3] = 3
+  const updateMenu = (name, price, id) => {
+    const editList = [...coffeeList];
+
+    const parseID = parseInt(id);
+
+    if (isNaN(parseID)) {
+      alert("숫자를 입력하세요");
+      return;
+    }
+
+    for (let i = 0; i < editList.length; i++) {
+      if (editList[i].id === id) {
+        const num = parseInt(price);
+
+        if (isNaN(num)) {
+          return;
+        }
+
+        const coffee = {
+          id: parseID,
+          name,
+          price,
+        };
+
+        editList[i] = coffee;
+        // editList[i].name = name;
+        // editList[i].price = num;
+      }
+    }
+    console.log(editList);
+    setCoffeeList(editList);
 
     // 수정하는 방법
-
-    setCoffeeList();
-
-    console.log(name, price);
+    setCurrentData({ name: "", price: "" });
+    setEditing(false);
+    // console.log(name, price);
   };
 
   const updateOnSubmit = (event) => {
     event.preventDefault();
 
+    console.log(event);
     const name = event.target[0].value;
     const price = event.target[1].value;
+    const id = event.target[2].value;
 
-    updateMenu(name, price);
+    console.log(name, price);
+    updateMenu(name, price, id);
   };
 
   return (
